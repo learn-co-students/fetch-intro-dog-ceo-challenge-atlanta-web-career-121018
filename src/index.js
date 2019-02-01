@@ -47,3 +47,4 @@ function renderBreeds(breed) {
 // CHALLENGE 3 // 
 
 
+
