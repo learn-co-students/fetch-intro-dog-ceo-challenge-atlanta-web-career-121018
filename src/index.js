@@ -37,17 +37,30 @@ function fetchBreeds(breedURL) {
         // .then(data => console.log(Object.entries(data['message'])))
 } 
 
-function renderBreeds(breed) {
-    let list = document.querySelector("#dog-breeds");
-    let breedName = document.createElement('ul')
-    breedName.textContent = breed[0]
-// CHALLENGE 3 // 
-    breedName.addEventListener('click', (event) => {
-        event.target.style.color = 'purple'
-    })
-    list.appendChild(breedName) 
+// CHALLENGE 3/4 // 
+function renderBreeds(breed) { 
+    let list = document.querySelector("#dog-breeds"); 
+    // if filter selected
+    // if breed[0].includes(event.target.value)   
+        // filtered breeds
+        let breedName = document.createElement('ul')
+        breedName.textContent = breed[0]
+        breedName.addEventListener('click', (event) => {
+            event.target.style.color = 'purple'
+        })
+        list.appendChild(breedName) 
+    // else
+        //render all breeds
 }  
 
+// CHALLENGE 4 //
+// const dogSelect = document.getElementById('breed-dropdown')
+// dogSelect.addEventListener('input', function(event) { 
+//   let filteredDoggos = POKEMON.filter(function(pokeObj){
+//     return pokeObj.name.includes(event.target.value)
+//   })  
+//  printPokemon(filteredPokemon);
+// })
 
 
 
