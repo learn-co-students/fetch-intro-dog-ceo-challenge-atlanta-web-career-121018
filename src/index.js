@@ -41,10 +41,14 @@ function renderBreeds(breed) {
     let list = document.querySelector("#dog-breeds");
     let breedName = document.createElement('ul')
     breedName.textContent = breed[0]
+// CHALLENGE 3 // 
+    breedName.addEventListener('click', (event) => {
+        event.target.style.color = 'purple'
+    })
     list.appendChild(breedName) 
 }  
 
-// CHALLENGE 3 // 
+
 
 
 
