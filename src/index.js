@@ -1,17 +1,21 @@
-console.log('%c HI', 'color: firebrick')
+console.log('%c HI', 'color: firebrick') 
 document.addEventListener("DOMContentLoaded", function() {
-    const imgURL = "https://dog.ceo/api/breeds/image/random/4" 
-    const breedURL = 'https://dog.ceo/api/breeds/list/all'
     fetchImages(imgURL)
-    fetchBreeds(breedURL)
-}); 
+    addSelectHandle()
+    fetchBreeds(breedURL) 
+});  
+
+const imgURL = "https://dog.ceo/api/breeds/image/random/4" 
+const breedURL = 'https://dog.ceo/api/breeds/list/all'
+var input = "a"; 
+let list = document.querySelector("#dog-breeds"); 
+
 
 // CHALLENGE 1 //
 function fetchImages(imgURL) {
     fetch(imgURL)
         .then(res => res.json())
-        .then(data => data['message'].forEach(renderImages))
-        // .then(data => console.log(data['message']))
+            .then(data => data['message'].forEach(renderImages))
 } 
 
 function renderImages(doggo) {
@@ -30,38 +34,46 @@ function doggoView(doggo) {
 } 
 
 // CHALLENGE 2 //
-function fetchBreeds(breedURL) {
+function fetchBreeds(breedURL) { 
+    list.innerHTML = ""
     fetch(breedURL)
         .then(res => res.json())
-        .then(data => (Object.entries(data['message'])).forEach(renderBreeds))
-        // .then(data => console.log(Object.entries(data['message'])))
+        .then(data => (Object.entries(data['message'])).forEach(filterBreed))
+} 
+
+function addSelectHandle() { 
+    let dogSelect = document.getElementById('select-breed')
+    dogSelect.addEventListener('change', function(event) { 
+        input = event.target.value 
+        fetchBreeds(breedURL)
+    }) 
+}
+
+// CHALLENGE 4 //
+function filterBreed(breed) {
+    if (breed[0].charAt(0) == input) {
+        renderBreeds(breed)
+    }
 } 
 
 // CHALLENGE 3/4 // 
 function renderBreeds(breed) { 
-    let list = document.querySelector("#dog-breeds"); 
-    // if filter selected
-    // if breed[0].includes(event.target.value)   
-        // filtered breeds
-        let breedName = document.createElement('ul')
-        breedName.textContent = breed[0]
-        breedName.addEventListener('click', (event) => {
-            event.target.style.color = 'purple'
-        })
-        list.appendChild(breedName) 
-    // else
-        //render all breeds
+    let breedName = document.createElement('ul')
+    breedName.textContent = breed[0]
+    breedName.addEventListener('click', (event) => {
+        event.target.style.color = 'purple'
+    })
+    list.appendChild(breedName) 
 }  
 
-// CHALLENGE 4 //
-// const dogSelect = document.getElementById('breed-dropdown')
-// dogSelect.addEventListener('input', function(event) { 
-//   let filteredDoggos = POKEMON.filter(function(pokeObj){
-//     return pokeObj.name.includes(event.target.value)
-//   })  
-//  printPokemon(filteredPokemon);
-// })
 
 
 
+
+// filtering the data and using fetch
+// 1. get data once, keep in global variable, empty container, filter global, re-render (var global = {}; at top of code; set global = data in fetch fn;)
+// 2. fetch data with each click, filter it, re-render into container (preferred, cleaner)
+
+
+//consider having 2 functions -- renderAllBreeds, then one for when a filter is performs (clears container prior)
 
